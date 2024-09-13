@@ -27,6 +27,8 @@ No modules.
 | [argocd_application.keycloak](https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/application) | resource |
 | [helm_release.keycloak](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubernetes_manifest.custom-certificates-secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
+| [kubernetes_manifest.keycloak-cloudnativepg-database-cluster](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
+| [kubernetes_manifest.keycloak-cloudnativepg-database-secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_namespace.keycloak-namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 
 ## Inputs
@@ -38,11 +40,17 @@ No modules.
 | <a name="input_argocd-namespace"></a> [argocd-namespace](#input\_argocd-namespace) | ArgoCD Namespace | `string` | `"argocd"` | no |
 | <a name="input_argocd-server"></a> [argocd-server](#input\_argocd-server) | ArgoCD Server URL | `string` | `""` | no |
 | <a name="input_argocd-token"></a> [argocd-token](#input\_argocd-token) | ArgoCD Token | `string` | `""` | no |
+| <a name="input_cloudnativepg-database"></a> [cloudnativepg-database](#input\_cloudnativepg-database) | Use CloudNative PG Database as External Database | `bool` | `false` | no |
+| <a name="input_cloudnativepg-instances-replicas"></a> [cloudnativepg-instances-replicas](#input\_cloudnativepg-instances-replicas) | CloudNative PG Instances Replicas | `number` | `1` | no |
+| <a name="input_cloudnativepg-storage-size"></a> [cloudnativepg-storage-size](#input\_cloudnativepg-storage-size) | CloudNative PG Storage Size | `string` | `"10Gi"` | no |
 | <a name="input_cluster-url"></a> [cluster-url](#input\_cluster-url) | Cluster URL | `string` | `"https://kubernetes.default.svc"` | no |
 | <a name="input_configmap-name"></a> [configmap-name](#input\_configmap-name) | Config Map with CA Certificates Bundle Name | `string` | `""` | no |
 | <a name="input_custom-certificates"></a> [custom-certificates](#input\_custom-certificates) | Custom Certificates in Base64 | `string` | `""` | no |
 | <a name="input_custom-certificates-secret"></a> [custom-certificates-secret](#input\_custom-certificates-secret) | Use Keycloak custom CA certificates Secret. The secret will be mounted as a directory and configured using KC\_TRUSTSTORE\_PATHS | `bool` | `false` | no |
 | <a name="input_custom-certificates-secret-name"></a> [custom-certificates-secret-name](#input\_custom-certificates-secret-name) | Custom Certificates Secret Name | `string` | `""` | no |
+| <a name="input_db-password"></a> [db-password](#input\_db-password) | DB Password | `string` | `""` | no |
+| <a name="input_db-port"></a> [db-port](#input\_db-port) | DB Port | `number` | `"5432"` | no |
+| <a name="input_default-postgresql"></a> [default-postgresql](#input\_default-postgresql) | Default PostgreSQL | `bool` | `true` | no |
 | <a name="input_deploy-method"></a> [deploy-method](#input\_deploy-method) | Choose Deploy Method ArgpCD or Helm | `string` | n/a | yes |
 | <a name="input_helm-chart-name"></a> [helm-chart-name](#input\_helm-chart-name) | Helm Chart Name | `string` | `"keycloak"` | no |
 | <a name="input_helm-chart-repo"></a> [helm-chart-repo](#input\_helm-chart-repo) | Helm Chart Repo | `string` | `"oci://registry-1.docker.io/bitnamicharts/"` | no |
