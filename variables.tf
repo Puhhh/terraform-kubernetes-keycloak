@@ -161,3 +161,45 @@ variable "custom-certificates" {
     error_message = "custom-certificates must not be null when custom-certificates-secret is true."
   }
 }
+
+variable "default-postgresql" {
+  description = "Default PostgreSQL"
+  type        = bool
+  default     = true
+}
+
+variable "cloudnativepg-database" {
+  description = "Use CloudNative PG Database as External Database"
+  type        = bool
+  default     = false
+}
+
+variable "cloudnativepg-instances-replicas" {
+  description = "CloudNative PG Instances Replicas"
+  type        = number
+  default     = 1
+}
+
+variable "cloudnativepg-storage-size" {
+  description = "CloudNative PG Storage Size"
+  type        = string
+  default     = "10Gi"
+}
+
+variable "db-port" {
+  description = "DB Port"
+  type        = number
+  default     = "5432"
+}
+
+variable "db-password" {
+  description = "DB Password"
+  type        = string
+  sensitive   = true
+  default     = ""
+
+  validation {
+    condition     = !(var.cloudnativepg-database && var.db-password == "")
+    error_message = "db-password must not be null when cloudnativepg-database is true."
+  }
+}

@@ -33,6 +33,7 @@ resource "argocd_application" "keycloak" {
           admin-password                  = var.admin-password,
           proxy-type                      = var.proxy-type,
           configmap-name                  = var.configmap-name,
+          default-postgresql              = var.default-postgresql,
           custom-certificates-secret-name = var.custom-certificates-secret ? var.custom-certificates-secret-name : ""
         }) : ""
       }
@@ -55,6 +56,7 @@ resource "helm_release" "keycloak" {
       admin-password                  = var.admin-password,
       proxy-type                      = var.proxy-type,
       configmap-name                  = var.configmap-name,
+      default-postgresql              = var.default-postgresql,
       custom-certificates-secret-name = var.custom-certificates-secret ? var.custom-certificates-secret-name : ""
     })
   ] : []
@@ -73,5 +75,54 @@ resource "kubernetes_manifest" "custom-certificates-secret" {
       "name" : var.custom-certificates-secret-name
       "namespace" : kubernetes_namespace.keycloak-namespace.metadata[0].name
     }
+  }
+}
+
+resource "kubernetes_manifest" "keycloak-cloudnativepg-database-cluster" {
+  count = var.cloudnativepg-database == true ? 1 : 0
+
+  manifest = {
+    "apiVersion" = "postgresql.cnpg.io/v1"
+    "kind"       = "Cluster"
+    "metadata" = {
+      "name"      = "${var.helm-chart-name}-pg-cluster"
+      "namespace" = kubernetes_namespace.keycloak-namespace.metadata[0].name
+    }
+    "spec" = {
+      "bootstrap" = {
+        "initdb" = {
+          "database" = var.helm-chart-name
+          "owner"    = var.helm-chart-name
+          "secret" = {
+            "name" = "${var.helm-chart-name}-pg-secret"
+          }
+        }
+      }
+      "instances" = var.cloudnativepg-instances-replicas
+      "storage" = {
+        "size" = var.cloudnativepg-storage-size
+      }
+    }
+  }
+}
+
+resource "kubernetes_manifest" "keycloak-cloudnativepg-database-secret" {
+  count = var.cloudnativepg-database == true ? 1 : 0
+
+  manifest = {
+    "apiVersion" = "v1"
+    "data" = {
+      "db-host"  = base64encode("${var.helm-chart-name}-pg-cluster-rw.${kubernetes_namespace.keycloak-namespace.metadata[0].name}.svc.cluster.local")
+      "db-port"  = base64encode(var.db-port)
+      "db-name"  = base64encode(var.helm-chart-name)
+      "username" = base64encode(var.helm-chart-name)
+      "password" = base64encode(var.db-password)
+    }
+    "kind" = "Secret"
+    "metadata" = {
+      "name"      = "${var.helm-chart-name}-pg-secret"
+      "namespace" = kubernetes_namespace.keycloak-namespace.metadata[0].name
+    }
+    "type" = "Opaque"
   }
 }
