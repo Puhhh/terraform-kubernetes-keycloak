@@ -21,19 +21,19 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path    = var.kubeconfig-path
-  config_context = var.kube-context
+  config_path    = var.kubeconfig_path
+  config_context = var.kube_context
 }
 
 provider "argocd" {
-  server_addr = var.argocd-server
-  auth_token  = var.argocd-token
-  insecure    = var.tls-verify-skip
+  server_addr = var.argocd_server
+  auth_token  = var.argocd_token
+  insecure    = var.tls_verify_skip
 }
 
 provider "helm" {
   kubernetes {
-    config_path    = var.kubeconfig-path
-    config_context = var.kube-context
+    config_path    = var.kubeconfig_path
+    config_context = var.kube_context
   }
 }
