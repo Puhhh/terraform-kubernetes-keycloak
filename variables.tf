@@ -232,6 +232,7 @@ variable "cloudnativepg_database_port" {
 variable "cloudnativepg_database_password" {
   description = "CloudNative PG Database Password"
   type        = string
+  sensitive   = true
   default     = ""
 
   validation {
