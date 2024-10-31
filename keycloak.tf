@@ -32,7 +32,7 @@ resource "argocd_application" "keycloak" {
   count = lower(var.deploy_method) == "argocd" ? 1 : 0
 
   metadata {
-    name      = var.keycloak_name
+    name      = var.helm_chart_name
     namespace = var.argocd_namespace
   }
 
@@ -62,7 +62,7 @@ resource "helm_release" "keycloak" {
   count = lower(var.deploy_method) == "helm" ? 1 : 0
 
   namespace  = kubernetes_namespace.keycloak_namespace.metadata[0].name
-  name       = var.helm_name
+  name       = var.helm_chart_name
   chart      = var.helm_chart_name
   repository = var.helm_chart_repo
   version    = var.helm_chart_version

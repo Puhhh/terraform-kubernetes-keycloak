@@ -12,9 +12,9 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_argocd"></a> [argocd](#provider\_argocd) | 6.1.1 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.15.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.32.0 |
+| <a name="provider_argocd"></a> [argocd](#provider\_argocd) | 7.0.3 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.16.1 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.33.0 |
 
 ## Modules
 
@@ -24,7 +24,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [argocd_application.keycloak](https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/application) | resource |
+| [argocd_application.keycloak](https://registry.terraform.io/providers/argoproj-labs/argocd/latest/docs/resources/application) | resource |
 | [helm_release.keycloak](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubernetes_manifest.custom_certificates_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_manifest.keycloak_cloudnativepg_database_cluster](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
@@ -50,8 +50,8 @@ No modules.
 | <a name="input_custom_certificates"></a> [custom\_certificates](#input\_custom\_certificates) | Custom Certificates in Base64 | `string` | `""` | no |
 | <a name="input_custom_certificates_secret"></a> [custom\_certificates\_secret](#input\_custom\_certificates\_secret) | Use Keycloak custom CA certificates Secret. The secret will be mounted as a directory and configured using KC\_TRUSTSTORE\_PATHS | `bool` | `false` | no |
 | <a name="input_custom_certificates_secret_name"></a> [custom\_certificates\_secret\_name](#input\_custom\_certificates\_secret\_name) | Custom Certificates Secret Name | `string` | `""` | no |
-| <a name="input_db_credentials"></a> [db\_credentials](#input\_db\_credentials) | DB Credentials | `map(string)` | <pre>{<br>  "dbname": "",<br>  "host": "",<br>  "password": "",<br>  "port": "",<br>  "username": ""<br>}</pre> | no |
-| <a name="input_db_credentials_secret"></a> [db\_credentials\_secret](#input\_db\_credentials\_secret) | DB Credentials Secret | `map(string)` | <pre>{<br>  "dbname_key": "",<br>  "host_key": "",<br>  "password_key": "",<br>  "port_key": "",<br>  "secret_name": "",<br>  "username_key": ""<br>}</pre> | no |
+| <a name="input_db_credentials"></a> [db\_credentials](#input\_db\_credentials) | DB Credentials | `map(string)` | <pre>{<br/>  "dbname": "",<br/>  "host": "",<br/>  "password": "",<br/>  "port": "",<br/>  "username": ""<br/>}</pre> | no |
+| <a name="input_db_credentials_secret"></a> [db\_credentials\_secret](#input\_db\_credentials\_secret) | DB Credentials Secret | `map(string)` | <pre>{<br/>  "dbname_key": "",<br/>  "host_key": "",<br/>  "password_key": "",<br/>  "port_key": "",<br/>  "secret_name": "",<br/>  "username_key": ""<br/>}</pre> | no |
 | <a name="input_default_postgresql"></a> [default\_postgresql](#input\_default\_postgresql) | Default PostgreSQL | `bool` | `true` | no |
 | <a name="input_deploy_method"></a> [deploy\_method](#input\_deploy\_method) | Choose Deploy Method ArgpCD or Helm | `string` | n/a | yes |
 | <a name="input_helm_chart_name"></a> [helm\_chart\_name](#input\_helm\_chart\_name) | Helm Chart Name | `string` | `"keycloak"` | no |
@@ -59,8 +59,6 @@ No modules.
 | <a name="input_helm_chart_version"></a> [helm\_chart\_version](#input\_helm\_chart\_version) | Helm Chart Version | `string` | `"22.1.0"` | no |
 | <a name="input_helm_custom_values"></a> [helm\_custom\_values](#input\_helm\_custom\_values) | Use Helm Custom Values | `bool` | `false` | no |
 | <a name="input_helm_custom_values_path"></a> [helm\_custom\_values\_path](#input\_helm\_custom\_values\_path) | Helm Custom Values Path | `string` | `""` | no |
-| <a name="input_helm_name"></a> [helm\_name](#input\_helm\_name) | Helm Release Name | `string` | `"keycloak"` | no |
-| <a name="input_keycloak_name"></a> [keycloak\_name](#input\_keycloak\_name) | Keycloak Name | `string` | `"keycloak"` | no |
 | <a name="input_keycloak_namespace"></a> [keycloak\_namespace](#input\_keycloak\_namespace) | Keycloak Namespace | `string` | `"keycloak"` | no |
 | <a name="input_kube_context"></a> [kube\_context](#input\_kube\_context) | Kubernetes Context to Use | `string` | `""` | no |
 | <a name="input_kubeconfig_path"></a> [kubeconfig\_path](#input\_kubeconfig\_path) | Kubeconfig Path | `string` | `"~/.kube/config"` | no |

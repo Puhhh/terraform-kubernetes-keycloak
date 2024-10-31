@@ -50,12 +50,6 @@ variable "keycloak_namespace" {
   default     = "keycloak"
 }
 
-variable "keycloak_name" {
-  description = "Keycloak Name"
-  type        = string
-  default     = "keycloak"
-}
-
 variable "argocd_namespace" {
   description = "ArgoCD Namespace"
   type        = string
@@ -66,12 +60,6 @@ variable "cluster_url" {
   description = "Cluster URL"
   type        = string
   default     = "https://kubernetes.default.svc"
-}
-
-variable "helm_name" {
-  description = "Helm Release Name"
-  type        = string
-  default     = "keycloak"
 }
 
 variable "helm_chart_name" {
