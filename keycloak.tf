@@ -77,7 +77,7 @@ resource "kubernetes_manifest" "custom_certificates_secret" {
     "apiVersion" = "v1"
     "kind"       = "Secret"
     "data" = {
-      "${var.custom_certificates_secret_name}.pem" = var.custom_certificates
+      "${var.custom_certificates_secret_name}.pem" = base64encode(var.custom_certificates)
     }
     "metadata" = {
       "name" : var.custom_certificates_secret_name
